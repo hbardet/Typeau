@@ -1,0 +1,159 @@
+import React, { useEffect, useRef } from "react";
+
+const WaveLine = ({
+  baseColor = "#2196f3",
+  amplitude = 25,
+  frequency = 0.02,
+  speed = 0.05,
+  offset = 0,
+  phase = 0,
+  deformationIntensity = 1,
+  mouseX = 0,
+  mouseY = 0,
+  yPosition = 0,
+  lineHeight = 0,
+  textInfluence = {
+    content: "",
+    position: {
+      x: window.innerWidth / 2,
+      y: window.innerHeight / 2,
+      width: 0,
+    },
+  },
+}) => {
+  const canvasRef = useRef(null);
+  const animationRef = useRef({ time: phase });
+  const mouseRef = useRef({ x: mouseX, y: mouseY });
+
+  useEffect(() => {
+    mouseRef.current = { x: mouseX, y: mouseY };
+  }, [mouseX, mouseY]);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    let animationFrame;
+
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight / 4;
+    };
+
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    const drawWave = () => {
+      const width = canvas.width;
+      const height = canvas.height;
+      const { x: currentMouseX, y: currentMouseY } = mouseRef.current;
+
+      ctx.beginPath();
+      ctx.moveTo(0, height / 2);
+
+      for (let x = 0; x <= width; x += 1) {
+        // Animation de base
+        let y =
+          height / 2 +
+          amplitude *
+            Math.sin(
+              x * frequency + animationRef.current.time * speed + offset,
+            );
+
+        // Effet du curseur
+        const verticalDistance = Math.abs(
+          currentMouseY - (yPosition + lineHeight / 2),
+        );
+        const verticalRadius = 100;
+
+        if (verticalDistance < verticalRadius) {
+          const radius = 100;
+          const distanceX = Math.abs(x - currentMouseX);
+          const distance = Math.sqrt(distanceX * distanceX);
+
+          const verticalFactor = 1 - verticalDistance / verticalRadius;
+
+          if (distance < radius) {
+            const influence = (1 - distance / radius) * 30 * verticalFactor;
+            y += influence * Math.sin(distance * 0.1);
+          }
+        }
+
+        // Effet du texte
+        if (textInfluence.content && textInfluence.position) {
+          const centerY = yPosition + height / 2;
+          const textVerticalDistance = Math.abs(
+            textInfluence.position.y - centerY,
+          );
+          const maxTextDistance = 100;
+
+          if (textVerticalDistance < maxTextDistance) {
+            const distanceFromTextCenter = Math.abs(
+              x - textInfluence.position.x,
+            );
+            const textRadius = Math.max(textInfluence.position.width / 2, 100);
+
+            if (distanceFromTextCenter < textRadius) {
+              const verticalFactor = 1 - textVerticalDistance / maxTextDistance;
+              const horizontalFactor = 1 - distanceFromTextCenter / textRadius;
+
+              const textEffect =
+                Math.sin(
+                  distanceFromTextCenter * 0.03 + animationRef.current.time * 2,
+                ) *
+                40 *
+                horizontalFactor *
+                verticalFactor;
+
+              y += textEffect;
+            }
+          }
+        }
+
+        ctx.lineTo(x, y);
+      }
+
+      ctx.strokeStyle = baseColor;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    };
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawWave();
+      animationRef.current.time += 0.05;
+      animationFrame = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => {
+      window.removeEventListener("resize", resizeCanvas);
+      cancelAnimationFrame(animationFrame);
+    };
+  }, [
+    amplitude,
+    frequency,
+    speed,
+    offset,
+    baseColor,
+    deformationIntensity,
+    yPosition,
+    lineHeight,
+    textInfluence,
+  ]);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{
+        position: "absolute",
+        left: 0,
+        backgroundColor: "transparent",
+        width: "100%",
+        height: "100%",
+      }}
+    />
+  );
+};
+
+export default WaveLine;
