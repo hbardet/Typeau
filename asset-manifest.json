@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/typeau/static/css/main.e6c13ad2.css",
+    "main.js": "/typeau/static/js/main.e9b09999.js",
+    "static/js/453.1a73eb97.chunk.js": "/typeau/static/js/453.1a73eb97.chunk.js",
+    "index.html": "/typeau/index.html",
+    "main.e6c13ad2.css.map": "/typeau/static/css/main.e6c13ad2.css.map",
+    "main.e9b09999.js.map": "/typeau/static/js/main.e9b09999.js.map",
+    "453.1a73eb97.chunk.js.map": "/typeau/static/js/453.1a73eb97.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.e9b09999.js"
+  ]
+}
