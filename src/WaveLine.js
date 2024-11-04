@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 
 const WaveLine = ({
-  baseColor = "#2196f3",
+  baseColor = "#002b36",
   amplitude = 25,
   frequency = 0.02,
   speed = 0.05,
@@ -51,7 +51,6 @@ const WaveLine = ({
       ctx.moveTo(0, height / 2);
 
       for (let x = 0; x <= width; x += 1) {
-        // Animation de base
         let y =
           height / 2 +
           amplitude *
@@ -59,11 +58,10 @@ const WaveLine = ({
               x * frequency + animationRef.current.time * speed + offset,
             );
 
-        // Effet du curseur
         const verticalDistance = Math.abs(
           currentMouseY - (yPosition + lineHeight / 2),
         );
-        const verticalRadius = 100;
+        const verticalRadius = 50;
 
         if (verticalDistance < verticalRadius) {
           const radius = 100;
@@ -78,37 +76,59 @@ const WaveLine = ({
           }
         }
 
-        // Effet du texte
-        if (textInfluence.content && textInfluence.position) {
-          const centerY = yPosition + height / 2;
-          const textVerticalDistance = Math.abs(
-            textInfluence.position.y - centerY,
+        if (textInfluence.content && textInfluence.content.length > 0) {
+          const centerX = width / 2;
+          const centerY = window.innerHeight / 2;
+          const verticalDistance = Math.abs(
+            yPosition + lineHeight / 2 - centerY,
           );
-          const maxTextDistance = 100;
+          const verticalRadius = 100;
 
-          if (textVerticalDistance < maxTextDistance) {
-            const distanceFromTextCenter = Math.abs(
-              x - textInfluence.position.x,
-            );
-            const textRadius = Math.max(textInfluence.position.width / 2, 100);
+          // Facteur d'intensité basé sur la longueur du texte
+          const intensityFactor = Math.min(textInfluence.content.length, 3); // Maximum 3x plus intense
 
-            if (distanceFromTextCenter < textRadius) {
-              const verticalFactor = 1 - textVerticalDistance / maxTextDistance;
-              const horizontalFactor = 1 - distanceFromTextCenter / textRadius;
+          // Calcul de la largeur horizontale basée sur la longueur du texte
+          const horizontalRadius = Math.min(
+            width / 2,
+            textInfluence.content.length * 20 + 200,
+          );
 
+          if (verticalDistance < verticalRadius) {
+            const distanceX = Math.abs(x - centerX);
+
+            if (distanceX < horizontalRadius) {
+              const verticalFactor = 1 - verticalDistance / verticalRadius;
+              const horizontalFactor = 1 - distanceX / horizontalRadius;
+
+              // Effet principal avec intensité croissante
               const textEffect =
-                Math.sin(
-                  distanceFromTextCenter * 0.03 + animationRef.current.time * 2,
-                ) *
-                40 *
+                Math.sin(distanceX * 0.03 + animationRef.current.time * 1.5) *
+                Math.cos(distanceX * 0.02 + animationRef.current.time) *
+                (30 * intensityFactor) * // Amplitude de base multipliée par le facteur d'intensité
+                horizontalFactor *
+                verticalFactor *
+                (Math.min(textInfluence.content.length, 20) / 15); // Augmenté pour plus d'impact
+
+              // Effet de rebond également influencé par la longueur
+              const bounceEffect =
+                Math.sin(animationRef.current.time * 2) *
+                (15 * Math.sqrt(intensityFactor)) * // Augmentation plus douce de l'effet de rebond
                 horizontalFactor *
                 verticalFactor;
 
-              y += textEffect;
+              // Ajout d'une ondulation supplémentaire pour les textes longs
+              const complexityEffect =
+                textInfluence.content.length > 5
+                  ? Math.sin(distanceX * 0.05 + animationRef.current.time) *
+                    (5 * intensityFactor) *
+                    horizontalFactor *
+                    verticalFactor
+                  : 0;
+
+              y += textEffect + bounceEffect + complexityEffect;
             }
           }
         }
-
         ctx.lineTo(x, y);
       }
 

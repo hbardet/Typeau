@@ -15,16 +15,27 @@ const TextContainer = styled.div`
 `;
 
 const TextInput = styled.input`
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   background: transparent;
   border: none;
-  color: white;
+  color: #002b36;
   font-family: "MaTypo", sans-serif;
   font-size: 48px;
   text-align: center;
-  width: 100%;
+  padding: 0;
+  min-width: 300px; // Largeur minimum
+  width: auto;
+  max-width: 80vw;
 
   &:focus {
     outline: none;
+  }
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
   }
 `;
 
@@ -32,26 +43,53 @@ const TextOverlay = ({ onTextChange }) => {
   const [text, setText] = useState("");
   const inputRef = useRef(null);
 
-  useEffect(() => {
+  const updatePosition = () => {
     if (inputRef.current) {
       const rect = inputRef.current.getBoundingClientRect();
       onTextChange({
         content: text,
         position: {
-          x: rect.left + rect.width / 2,
+          x: window.innerWidth / 2, // Centre exact de l'écran
           y: rect.top + rect.height / 2,
           width: rect.width,
         },
       });
     }
-  }, [text, onTextChange]);
+  };
+
+  const handleChange = (e) => {
+    const newText = e.target.value;
+    setText(newText);
+    if (inputRef.current) {
+      const rect = inputRef.current.getBoundingClientRect();
+      onTextChange({
+        content: newText,
+        position: {
+          x: window.innerWidth / 2, // Centre exact de l'écran
+          y: rect.top + rect.height / 2,
+          width: rect.width,
+        },
+      });
+    }
+  };
+
+  useEffect(() => {
+    updatePosition();
+    const interval = setInterval(updatePosition, 100);
+    return () => clearInterval(interval);
+  }, [text]);
+
+  useEffect(() => {
+    window.addEventListener("resize", updatePosition);
+    return () => window.removeEventListener("resize", updatePosition);
+  }, []);
 
   return (
     <TextContainer>
       <TextInput
         ref={inputRef}
         value={text}
-        onChange={(e) => setText(e.target.value)}
+        onChange={handleChange}
         placeholder="Tapez votre texte..."
         autoFocus
       />

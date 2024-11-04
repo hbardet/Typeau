@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import WaveLine from "./WaveLine";
 import TextOverlay from "./TextOverlay";
 
-const WaveContainer = ({ baseColor = "#2196f3", waveCount = 5 }) => {
+const WaveContainer = ({ baseColor = "#002b36", waveCount = 20 }) => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [textInfluence, setTextInfluence] = useState({
     content: "",
@@ -13,41 +13,33 @@ const WaveContainer = ({ baseColor = "#2196f3", waveCount = 5 }) => {
     },
   });
 
-  useEffect(() => {
-    const handleMouseMove = (event) => {
-      setMousePos({
-        x: event.clientX,
-        y: event.clientY,
-      });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
+  const handleMouseMove = useCallback((event) => {
+    setMousePos({
+      x: event.clientX,
+      y: event.clientY,
+    });
   }, []);
 
-  const handleTextChange = (textInfo) => {
-    setTextInfluence({
-      letters: textInfo.letters,
-      content: textInfo.content,
-    });
-  };
+  const handleTextChange = useCallback((textInfo) => {
+    console.log("WaveContainer received text update:", textInfo);
+    setTextInfluence(textInfo);
+  }, []);
 
-  const generateWaveConfigs = () => {
-    return Array.from({ length: waveCount }, (_, index) => {
-      const progress = index / (waveCount - 1);
-      return {
-        amplitude: 20 + progress * 15,
-        frequency: 0.015 + progress * 0.005,
-        speed: 0.3 + progress * 0.2,
-        offset: (index * Math.PI) / 3,
-        phase: (index * Math.PI) / 4,
-        deformationIntensity: 0.5 + progress * 2,
-      };
-    });
-  };
+  const waveConfigs = useMemo(
+    () =>
+      Array.from({ length: waveCount }, (_, index) => {
+        const progress = index / (waveCount - 1);
+        return {
+          amplitude: 20 + progress * 15,
+          frequency: 0.015 + progress * 0.005,
+          speed: 0.3 + progress * 0.2,
+          offset: (index * Math.PI) / 3,
+          phase: (index * Math.PI) / 4,
+          deformationIntensity: 0.5 + progress * 2,
+        };
+      }),
+    [waveCount],
+  );
 
   const lineHeight = window.innerHeight / waveCount;
 
@@ -60,11 +52,13 @@ const WaveContainer = ({ baseColor = "#2196f3", waveCount = 5 }) => {
         width: "100vw",
         height: "100vh",
         overflow: "hidden",
-        background: "#000",
+        background: "#fdf6e3",
       }}
+      onMouseMove={handleMouseMove}
     >
-      {generateWaveConfigs().map((config, index) => {
+      {waveConfigs.map((config, index) => {
         const yPosition = index * lineHeight;
+        console.log("Rendering WaveLine with textInfluence:", textInfluence);
 
         return (
           <div

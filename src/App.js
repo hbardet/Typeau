@@ -3,7 +3,7 @@ import WaveContainer from "./WaveContainer";
 function App() {
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
-      <WaveContainer baseColor="#4287f5" waveCount={20} />
+      <WaveContainer baseColor="#002b36" waveCount={20} />
     </div>
   );
 }
