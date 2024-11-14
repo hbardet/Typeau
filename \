@@ -35,7 +35,7 @@ const WaveLine = ({
       const verticalFactor = 1 - verticalDistance / verticalRadius;
 
       if (distance < radius) {
-        const influence = (1 - distance / radius) * 15 * verticalFactor;
+        const influence = (1 - distance / radius) * verticalFactor;
         y += influence * Math.sin(distance * .1);
       }
     }
