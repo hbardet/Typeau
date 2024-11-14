@@ -1,6 +1,5 @@
 import React, { useState, useCallback, useMemo } from "react";
 import WaveLine from "./WaveLine";
-import TextOverlay from "./TextOverlay";
 
 const WaveContainer = ({ baseColor = "#002b36", waveCount = 20 }) => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -78,12 +77,10 @@ const WaveContainer = ({ baseColor = "#002b36", waveCount = 20 }) => {
               mouseY={mousePos.y}
               yPosition={yPosition}
               lineHeight={lineHeight}
-              textInfluence={textInfluence}
             />
           </div>
         );
       })}
-      <TextOverlay onTextChange={handleTextChange} />
     </div>
   );
 };
