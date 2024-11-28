@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Typeau/static/css/main.e6c13ad2.css",
-    "main.js": "/Typeau/static/js/main.830c3e90.js",
+    "main.css": "/Typeau/static/css/main.ee2d2bd8.css",
+    "main.js": "/Typeau/static/js/main.d3d68c6e.js",
     "static/js/453.1a73eb97.chunk.js": "/Typeau/static/js/453.1a73eb97.chunk.js",
     "index.html": "/Typeau/index.html",
-    "main.e6c13ad2.css.map": "/Typeau/static/css/main.e6c13ad2.css.map",
-    "main.830c3e90.js.map": "/Typeau/static/js/main.830c3e90.js.map",
+    "main.ee2d2bd8.css.map": "/Typeau/static/css/main.ee2d2bd8.css.map",
+    "main.d3d68c6e.js.map": "/Typeau/static/js/main.d3d68c6e.js.map",
     "453.1a73eb97.chunk.js.map": "/Typeau/static/js/453.1a73eb97.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e6c13ad2.css",
-    "static/js/main.830c3e90.js"
+    "static/css/main.ee2d2bd8.css",
+    "static/js/main.d3d68c6e.js"
   ]
 }
