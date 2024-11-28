@@ -1,11 +1,41 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Generator: Adobe Illustrator 27.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 595.28 841.89" style="enable-background:new 0 0 595.28 841.89;" xml:space="preserve">
-<path d="M382.35,518.54c-0.65,5.21-1.11,14.96-3.27,24.31c-1.44,6.26-4.27,12.78-8.26,17.76c-11.15,13.91-23.4,27.34-43.06,27.66
-	c-9.76,0.16-19.6-1.81-29.33-3.33c-16.22-2.54-32.9-3.83-48.45-8.64c-25.77-7.97-34.15-31.15-23.57-55.71
-	c5.84-13.55,16.07-23.41,24.37-34.9c24.97-34.54,28.59-72.83,19.23-113.19c-4.02-17.34-3.6-34.5-1.1-52.07
-	c2.16-15.21,8.92-27.24,19.48-37.75c5.17-5.15,10.78-7.05,17.99-4.51c4.04,1.42,8.61,1.27,12.75,2.48
-	c24.42,7.18,40.37,27.83,43.28,53.36c3.42,30.09,4.94,60.44,13.43,89.89c3.06,10.63,2.57,22.35,3.27,33.6
-	C380.3,476.35,381.14,495.23,382.35,518.54z"/>
+
+<svg
+   version="1.1"
+   id="Calque_1"
+   x="0px"
+   y="0px"
+   viewBox="0 0 160.40256 311.22854"
+   xml:space="preserve"
+   sodipodi:docname="i_uppercase.svg"
+   width="160.40257"
+   height="311.22855"
+   inkscape:version="1.4 (e7c3feb1, 2024-10-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs1" /><sodipodi:namedview
+   id="namedview1"
+   pagecolor="#ffffff"
+   bordercolor="#000000"
+   borderopacity="0.25"
+   inkscape:showpageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#d1d1d1"
+   inkscape:zoom="0.030882894"
+   inkscape:cx="64.76077"
+   inkscape:cy="129.52154"
+   inkscape:window-width="1120"
+   inkscape:window-height="727"
+   inkscape:window-x="0"
+   inkscape:window-y="25"
+   inkscape:window-maximized="0"
+   inkscape:current-layer="Calque_1" />
+<path
+   d="m 160.40257,241.48938 c -0.65,5.21 -1.11,14.96 -3.27,24.31 -1.44,6.26 -4.27,12.78 -8.26,17.76 -11.15,13.91 -23.4,27.34 -43.06,27.66 -9.760001,0.16 -19.600001,-1.81 -29.330001,-3.33 -16.22,-2.54 -32.9,-3.83 -48.45,-8.64 -25.7700004,-7.97 -34.1500004,-31.15 -23.5700004,-55.71 5.8400004,-13.55 16.0700004,-23.41 24.3700004,-34.9 24.97,-34.54 28.59,-72.83 19.23,-113.189998 -4.02,-17.34 -3.6,-34.5 -1.1,-52.07 2.16,-15.21 8.92,-27.24 19.48,-37.7499995 5.17,-5.15000005 10.78,-7.05 17.99,-4.51 4.04,1.42 8.61,1.27 12.75,2.48 24.420001,7.1799995 40.370001,27.8299995 43.280001,53.3599995 3.42,30.09 4.94,60.439998 13.43,89.889998 3.06,10.63 2.57,22.35 3.27,33.6 1.19,18.85 2.03,37.73 3.24,61.04 z"
+   id="path1"
+   style="fill:#2480a7;fill-opacity:1" />
 </svg>
