@@ -1,6 +1,4 @@
 // WaveLine.js
-import React from "react";
-
 const WaveLine = ({
   ctx,
   baseColor = "#002b36",
@@ -28,15 +26,16 @@ const WaveLine = ({
     const verticalRadius = 50;
 
     if (verticalDistance < verticalRadius) {
-      const radius = 50;
+      const radius = 100;
       const distanceX = Math.abs(x - mouseX);
       const distance = Math.sqrt(distanceX * distanceX);
 
       const verticalFactor = 1 - verticalDistance / verticalRadius;
 
       if (distance < radius) {
-        const influence = (1 - distance / radius) * 15 * verticalFactor;
-        y += influence * Math.sin(distance * .1);
+        // Apply a smoother influence to avoid sharp peaks
+        const influence = (1 - distance / radius) * 10 * verticalFactor; // Reduced influence factor
+        y += influence * Math.cos(distance * 0.1); // Use cosine for a smoother curve
       }
     }
 
@@ -51,4 +50,3 @@ const WaveLine = ({
 };
 
 export default WaveLine;
-

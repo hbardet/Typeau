@@ -24,7 +24,7 @@ const WaveContainer = ({ baseColor = "#002b36", waveCount = 20 }) => {
           offset: (index * Math.PI) / 3,
         };
       }),
-    [waveCount]
+    [waveCount],
   );
 
   const handleMouseMove = useCallback((event) => {
@@ -59,7 +59,7 @@ const WaveContainer = ({ baseColor = "#002b36", waveCount = 20 }) => {
 
       waveConfigs.forEach((config, index) => {
         const yPosition = index * lineHeight;
-        
+
         // Rendu de chaque ligne en passant le contexte
         WaveLine({
           ctx,
@@ -96,7 +96,7 @@ const WaveContainer = ({ baseColor = "#002b36", waveCount = 20 }) => {
         width: "100vw",
         height: "100vh",
         overflow: "hidden",
-        background: "#1143bf",
+        background: "transparent",
       }}
       onMouseMove={handleMouseMove}
     >
