@@ -1,7 +1,7 @@
-import { Carousel, Button } from "antd";
+import { Button } from "antd";
 import { useEffect, useRef, useState } from "react";
-import CustomCarousel from "./Carousel";
-import WaveContainer from "./WaveContainer";
+import CustomCarousel from "../../Components/Carousel/Carousel";
+import WaveContainer from "../../Components/WaveContainer/WaveContainer";
 
 function createListSvg(basePath) {
   const svgList = [];
@@ -16,7 +16,7 @@ function createListSvg(basePath) {
 const svgListLower = createListSvg("lowercase");
 const svgListUpper = createListSvg("uppercase");
 
-function App() {
+function Typeau() {
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -40,19 +40,21 @@ function App() {
   };
 
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.play().catch((error) => {
+    const audio = audioRef.current;
+      if (audio) {
+        audio.play().catch((error) => {
         console.log("Erreur de lecture automatique:", error);
         setIsPlaying(false);
       });
     }
 
     return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
+      if (audio) {
+        audio.pause();
       }
     };
   }, []);
+
 
   useEffect(() => {
     const currentIndex = index;
@@ -135,4 +137,4 @@ function App() {
   );
 }
 
-export default App;
+export default Typeau;

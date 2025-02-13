@@ -1,6 +1,5 @@
-// WaveContainer.js
 import React, { useEffect, useRef, useCallback, useMemo } from "react";
-import WaveLine from "./WaveLine";
+import WaveLine from "../WaveLine/WaveLine";
 
 const WaveContainer = ({ baseColor = "#002b36", waveCount = 20 }) => {
   const canvasRef = useRef(null);

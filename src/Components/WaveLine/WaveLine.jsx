@@ -1,4 +1,3 @@
-// WaveLine.js
 const WaveLine = ({
   ctx,
   baseColor = "#002b36",
