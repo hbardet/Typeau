@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { Carousel, Row, Col, Button } from "antd";
+import { Carousel, Row, Col } from "antd";
 import "./Carousel.css";
 
 const CustomCarousel = ({
