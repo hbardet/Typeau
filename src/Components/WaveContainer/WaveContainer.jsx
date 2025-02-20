@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useCallback, useMemo } from "react";
 import WaveLine from "../WaveLine/WaveLine";
 
-const WaveContainer = ({ baseColor = "#002b36", waveCount = 20 }) => {
+const WaveContainer = ({ baseColor = "#2480A7", waveCount = 20 }) => {
   const canvasRef = useRef(null);
   const mouseRef = useRef({ x: 0, y: 0 });
   const animationFrameRef = useRef(null);
@@ -34,6 +34,15 @@ const WaveContainer = ({ baseColor = "#002b36", waveCount = 20 }) => {
   }, []);
 
   useEffect(() => {
+    // Attach global mousemove listener
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, [handleMouseMove]);
+
+  useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
 
@@ -59,7 +68,6 @@ const WaveContainer = ({ baseColor = "#002b36", waveCount = 20 }) => {
       waveConfigs.forEach((config, index) => {
         const yPosition = index * lineHeight;
 
-        // Rendu de chaque ligne en passant le contexte
         WaveLine({
           ctx,
           baseColor,
@@ -96,8 +104,8 @@ const WaveContainer = ({ baseColor = "#002b36", waveCount = 20 }) => {
         height: "100vh",
         overflow: "hidden",
         background: "transparent",
+        pointerEvents: "none"
       }}
-      onMouseMove={handleMouseMove}
     >
       <canvas
         ref={canvasRef}
@@ -106,7 +114,7 @@ const WaveContainer = ({ baseColor = "#002b36", waveCount = 20 }) => {
           left: 0,
           top: 0,
           width: "100%",
-          height: "100%",
+          height: "100%"
         }}
       />
     </div>
@@ -114,3 +122,4 @@ const WaveContainer = ({ baseColor = "#002b36", waveCount = 20 }) => {
 };
 
 export default WaveContainer;
+
