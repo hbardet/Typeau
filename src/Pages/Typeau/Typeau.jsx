@@ -19,24 +19,30 @@ const PAUSE_ICON = (
 
 const UPPERCASE_ICON = (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <text x="3" y="20" fontSize="18" fill="currentColor" fontWeight="bold">A</text>
-    <text x="12" y="18" fontSize="14" fill="currentColor" fontWeight="bold">a</text>
+    <text x="3" y="20" fontSize="18" fill="currentColor" fontWeight="bold">
+      A
+    </text>
+    <text x="12" y="18" fontSize="14" fill="currentColor" fontWeight="bold">
+      a
+    </text>
   </svg>
 );
 
 const LOWERCASE_ICON = (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <text x="3" y="18" fontSize="14" fill="currentColor" fontWeight="bold">A</text>
-    <text x="10" y="20" fontSize="18" fill="currentColor" fontWeight="bold">a</text>
+    <text x="3" y="18" fontSize="14" fill="currentColor" fontWeight="bold">
+      A
+    </text>
+    <text x="10" y="20" fontSize="18" fill="currentColor" fontWeight="bold">
+      a
+    </text>
   </svg>
 );
 
 function createListSvg(basePath) {
   const svgList = [];
   for (let i = 0; i < 26; i++) {
-    svgList.push(
-      `${process.env.PUBLIC_URL}/character/${basePath}/${String.fromCharCode(97 + i)}_${basePath}.svg`
-    );
+    svgList.push(`${process.env.PUBLIC_URL}/character/${basePath}/${String.fromCharCode(97 + i)}_${basePath}.svg`);
   }
   return svgList;
 }
@@ -96,10 +102,11 @@ function Typeau() {
         minHeight: "100vh",
         overflow: "auto",
         backgroundColor: "#1143bf",
+        position: "relative",
       }}
     >
       <audio ref={audioRef} src={path} loop autoPlay />
-      <div style={{ height: "100vh", position: "relative", padding: "20px" }}>
+      <div style={{ height: "100vh", padding: "20px" }}>
         <CustomCarousel
           svgList={showFirstCarousel ? svgListLower : svgListUpper}
           svgSize="50%"
@@ -108,29 +115,22 @@ function Typeau() {
         />
         <WaveContainer />
       </div>
+      
+      {/* Unified bottom container holding both the progress bar and the rounded buttons */}
       <div
         style={{
           position: "fixed",
-          bottom: "70px",
+          bottom: 0,
           left: 0,
           right: 0,
+          height: "70px",
           display: "flex",
-          justifyContent: "center",
-          zIndex: 2,
-        }}
-      >
-        <ProgressBar currentIndex={currentIndex} setCurrentIndex={setCurrentIndex} alphabet={alphabetList} />
-      </div>
-      <div
-        style={{
-          position: "fixed",
-          bottom: "20px",
-          left: 0,
-          right: 0,
-          display: "flex",
+          alignItems: "center",
           justifyContent: "space-between",
           padding: "0 20px",
-          zIndex: 2,
+          zIndex: 20,
+          pointerEvents: "auto",
+          backgroundColor: "transparent", // Transparent; adjust if needed
         }}
       >
         <RoundedButton
@@ -140,7 +140,11 @@ function Typeau() {
           color="#fff"
           backgroundColor="#4CAF50"
           borderColor="#3e8e41"
+          style={{}}
         />
+        <div style={{ flexGrow: 1, margin: "0 20px" }}>
+          <ProgressBar currentIndex={currentIndex} setCurrentIndex={setCurrentIndex} alphabet={alphabetList} />
+        </div>
         <RoundedButton
           icon={showFirstCarousel ? LOWERCASE_ICON : UPPERCASE_ICON}
           onClick={toggleCarousel}
@@ -148,6 +152,7 @@ function Typeau() {
           color="#fff"
           backgroundColor="#03A9F4"
           borderColor="#039BE5"
+          style={{}}
         />
       </div>
     </div>

@@ -7,10 +7,10 @@ const CustomCarousel = ({
   currentIndex = 0,
   setCurrentIndex,
 }) => {
-  // Extended list with clones at start and end.
+  // Extended list with clones at start and end for circular looping.
   const extendedSvgList = [svgList[svgList.length - 1], ...svgList, svgList[0]];
 
-  // Internal index starts at 1 (first real slide)
+  // Internal index (offset by 1 because of the clone at the beginning)
   const [index, setIndex] = useState(1);
   const [dragStart, setDragStart] = useState(null);
   const [dragOffset, setDragOffset] = useState(0);
@@ -18,30 +18,53 @@ const CustomCarousel = ({
   const containerRef = useRef(null);
   const prevParentIndexRef = useRef(currentIndex);
 
-  // When parent's currentIndex changes, decide on a target internal index.
-  // Use a circular difference calculation (alphabet length = 26).
+  // STATES FOR BUTTON ANIMATION
+  const [leftButtonOffset, setLeftButtonOffset] = useState(0);
+  const [rightButtonOffset, setRightButtonOffset] = useState(0);
+
+  // Animate button offsets based on a wave-like formula.
+  useEffect(() => {
+    let rafId;
+    let start = null;
+    function animate(timestamp) {
+      if (start === null) start = timestamp;
+      const time = (timestamp - start) / 1000; // in seconds
+      const amplitude = 10; // vertical offset amplitude in px
+      const frequency = 0.5; // control speed of oscillation
+
+      // Left button uses phase 0, right button uses phase π so they move oppositely.
+      setLeftButtonOffset(amplitude * Math.sin(time * frequency));
+      setRightButtonOffset(amplitude * Math.sin(time * frequency + Math.PI));
+      rafId = requestAnimationFrame(animate);
+    }
+    rafId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafId);
+  }, []);
+
+  // When parent's currentIndex changes, determine the internal (extended) index.
   useEffect(() => {
     const old = prevParentIndexRef.current;
     const newP = currentIndex;
     let diff = newP - old;
+    // Account for wrapping with 26 letters.
     if (diff > 13) diff = diff - 26;
     if (diff < -13) diff = diff + 26;
 
-    // If moving backward (from A to Z)
+    // If moving backward (A → Z)
     if (diff < 0 && old === 0 && newP === 25) {
       setIndex(0);
     }
-    // If moving forward (from Z to A)
+    // If moving forward (Z → A)
     else if (diff > 0 && old === 25 && newP === 0) {
       setIndex(extendedSvgList.length - 1);
     } else {
-      // In all other cases, the internal index matches parent's index + 1.
       setIndex(newP + 1);
     }
+
     prevParentIndexRef.current = newP;
   }, [currentIndex, extendedSvgList.length]);
 
-  // Propagate internal index changes back to the parent mapping internal index to parent's range.
+  // Propagate the internal index back to parent's currentIndex (mapping back to 0…25)
   useEffect(() => {
     if (index === 0) {
       setCurrentIndex(extendedSvgList.length - 3);
@@ -94,15 +117,16 @@ const CustomCarousel = ({
 
   const handleTransitionEnd = () => {
     if (index === extendedSvgList.length - 1) {
+      // Jump from cloned slide at the right to the first real slide.
       setIsTransitionEnabled(false);
       setIndex(1);
     } else if (index === 0) {
+      // Jump from cloned slide at the left to the last real slide.
       setIsTransitionEnabled(false);
       setIndex(extendedSvgList.length - 2);
     }
   };
 
-  // Re-enable CSS transition after an instant jump.
   useEffect(() => {
     if (!isTransitionEnabled) {
       const timer = setTimeout(() => {
@@ -169,10 +193,25 @@ const CustomCarousel = ({
           </div>
         ))}
       </div>
-      <button onClick={slidePrev} style={{ ...buttonStyle, left: "10px" }}>
+      <button
+        onClick={slidePrev}
+        style={{
+          ...buttonStyle,
+          left: "10px",
+          // Combine the vertical animation with the base translateY(-50%)
+          transform: `translateY(${leftButtonOffset}px) translateY(-50%)`,
+        }}
+      >
         Previous
       </button>
-      <button onClick={slideNext} style={{ ...buttonStyle, right: "10px" }}>
+      <button
+        onClick={slideNext}
+        style={{
+          ...buttonStyle,
+          right: "10px",
+          transform: `translateY(${rightButtonOffset}px) translateY(-50%)`,
+        }}
+      >
         Next
       </button>
     </div>
@@ -182,7 +221,6 @@ const CustomCarousel = ({
 const buttonStyle = {
   position: "absolute",
   top: "50%",
-  transform: "translateY(-50%)",
   backgroundColor: "rgba(0, 0, 0, 0.5)",
   color: "#fff",
   border: "none",
@@ -192,3 +230,4 @@ const buttonStyle = {
 };
 
 export default CustomCarousel;
+

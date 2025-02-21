@@ -1,40 +1,26 @@
-import React from 'react';
+import React from "react";
 
-function RoundedButton({ icon, onClick, size, color, backgroundColor, borderColor }) {
+const RoundedButton = ({ icon, onClick, size, color, backgroundColor, borderColor, style }) => {
+  const mergedStyles = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: size,
+    height: size,
+    color,
+    backgroundColor,
+    border: `2px solid ${borderColor}`,
+    borderRadius: "50%",
+    cursor: "pointer",
+    ...style,
+  };
+
   return (
-    <button
-      onClick={onClick}
-      style={{
-        width: size,
-        height: size,
-        backgroundColor,
-        borderColor,
-        borderRadius: '25%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        border: '2px solid',
-        cursor: 'pointer',
-        outline: 'none',
-        transition: 'background-color 0.3s ease, transform 0.3s ease',
-      }}
-      className="rounded-button"
-    >
-      <div
-        style={{
-          width: '60%',
-          height: '60%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          transition: 'transform 0.3s ease, opacity 0.3s ease',
-        }}
-      >
-        {icon}
-      </div>
+    <button onClick={onClick} style={mergedStyles}>
+      {icon}
     </button>
   );
-}
-
+};
 
 export default RoundedButton;
+
