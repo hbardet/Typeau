@@ -4,40 +4,10 @@ import WaveContainer from "../../Components/WaveContainer/WaveContainer";
 import RoundedButton from "../../Components/RoundedButton/RoundedButton";
 import ProgressBar from "../../Components/ProgressBar/ProgressBar";
 
-const PLAY_ICON = (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <polygon points="5 3 19 12 5 21" />
-  </svg>
-);
-
-const PAUSE_ICON = (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="6" y="4" width="4" height="16" />
-    <rect x="14" y="4" width="4" height="16" />
-  </svg>
-);
-
-const UPPERCASE_ICON = (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <text x="3" y="20" fontSize="18" fill="currentColor" fontWeight="bold">
-      A
-    </text>
-    <text x="12" y="18" fontSize="14" fill="currentColor" fontWeight="bold">
-      a
-    </text>
-  </svg>
-);
-
-const LOWERCASE_ICON = (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <text x="3" y="18" fontSize="14" fill="currentColor" fontWeight="bold">
-      A
-    </text>
-    <text x="10" y="20" fontSize="18" fill="currentColor" fontWeight="bold">
-      a
-    </text>
-  </svg>
-);
+const PLAY_ICON = `${process.env.PUBLIC_URL}/assets/son.svg`;
+const PAUSE_ICON = `${process.env.PUBLIC_URL}/assets/mute.svg`;
+const LOWERCASE_ICON = `${process.env.PUBLIC_URL}/assets/lowercase.svg`;
+const UPPERCASE_ICON = `${process.env.PUBLIC_URL}/assets/uppercase.svg`;
 
 function createListSvg(basePath) {
   const svgList = [];
@@ -115,8 +85,6 @@ function Typeau() {
         />
         <WaveContainer />
       </div>
-      
-      {/* Unified bottom container holding both the progress bar and the rounded buttons */}
       <div
         style={{
           position: "fixed",
@@ -127,19 +95,19 @@ function Typeau() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "0 20px",
+          padding: "20px 20px",
           zIndex: 20,
           pointerEvents: "auto",
-          backgroundColor: "transparent", // Transparent; adjust if needed
+          backgroundColor: "transparent",
         }}
       >
-        <RoundedButton
-          icon={isPlaying ? PAUSE_ICON : PLAY_ICON}
+       <RoundedButton
+          icon={isPlaying ? PLAY_ICON :  PAUSE_ICON}
           onClick={togglePlay}
-          size={50}
+          size={100}
           color="#fff"
-          backgroundColor="#4CAF50"
-          borderColor="#3e8e41"
+          backgroundColor="#2480A7"
+          borderColor="#2480A7"
           style={{}}
         />
         <div style={{ flexGrow: 1, margin: "0 20px" }}>
@@ -148,10 +116,10 @@ function Typeau() {
         <RoundedButton
           icon={showFirstCarousel ? LOWERCASE_ICON : UPPERCASE_ICON}
           onClick={toggleCarousel}
-          size={50}
+          size={100}
           color="#fff"
-          backgroundColor="#03A9F4"
-          borderColor="#039BE5"
+          backgroundColor="#2480A7"
+          borderColor="#2480A7"
           style={{}}
         />
       </div>

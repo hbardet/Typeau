@@ -17,7 +17,16 @@ const RoundedButton = ({ icon, onClick, size, color, backgroundColor, borderColo
 
   return (
     <button onClick={onClick} style={mergedStyles}>
-      {icon}
+       <img
+        src={icon}
+        alt="Button"
+        draggable="false"
+        style={{
+          width: "80%",
+          height: "80%",
+          userSelect: "none",
+        }}
+      />
     </button>
   );
 };

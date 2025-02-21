@@ -1,6 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./Carousel.css";
 
+const NEXT_ICON = `${process.env.PUBLIC_URL}/assets/next.svg`;
+const PREV_ICON = `${process.env.PUBLIC_URL}/assets/previous.svg`;
+
 const CustomCarousel = ({
   svgSize = "20%",
   svgList = [],
@@ -197,22 +200,38 @@ const CustomCarousel = ({
         onClick={slidePrev}
         style={{
           ...buttonStyle,
-          left: "10px",
-          // Combine the vertical animation with the base translateY(-50%)
           transform: `translateY(${leftButtonOffset}px) translateY(-50%)`,
         }}
       >
-        Previous
+       <img
+        src={PREV_ICON}
+        alt="Button"
+        draggable="false"
+        style={{
+          width: "300%",
+          height: "300%",
+          userSelect: "none",
+        }}
+      />
       </button>
       <button
         onClick={slideNext}
         style={{
           ...buttonStyle,
-          right: "10px",
+          right: "40px",
           transform: `translateY(${rightButtonOffset}px) translateY(-50%)`,
         }}
       >
-        Next
+       <img
+        src={NEXT_ICON}
+        alt="Button"
+        draggable="false"
+        style={{
+          width: "300%",
+          height: "300%",
+          userSelect: "none",
+        }}
+      />
       </button>
     </div>
   );
@@ -221,7 +240,7 @@ const CustomCarousel = ({
 const buttonStyle = {
   position: "absolute",
   top: "50%",
-  backgroundColor: "rgba(0, 0, 0, 0.5)",
+  backgroundColor: "rgba(0, 0, 0, 0)",
   color: "#fff",
   border: "none",
   padding: "10px",
