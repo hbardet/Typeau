@@ -3,17 +3,8 @@
 <svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 20 20" style="enable-background:new 0 0 20 20;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:none;stroke:#2480A7;stroke-width:2.7432;stroke-miterlimit:10;}
-	.st1{fill:none;stroke:#2480A7;stroke-width:2.3683;stroke-miterlimit:10;}
-	.st2{fill:none;stroke:#2480A7;stroke-width:1.5158;stroke-miterlimit:10;}
+	.st0{fill:none;stroke:#2480A7;stroke-width:2.7432;stroke-linecap:round;stroke-miterlimit:10;}
 </style>
-<g>
-	<path class="st0" d="M16.19,9.7c0,0-1.71,0.61-3.52-2c-1.42-2.05-3.13-1.18-3.6-1.9"/>
-	<path class="st0" d="M9.93,6.11c0,0-1.94,0.13-3.26-2.26C5.57,1.86,4.8,1.44,3.4,1.43"/>
-	<path class="st0" d="M3.33,18.54c0,0,2.26,0.02,4.08-2.59c1.42-2.05,3.13-1.18,3.6-1.9"/>
-	<path class="st0" d="M10.14,14.36c0,0,1.94,0.13,3.26-2.26c1.1-1.99,1.87-2.41,3.28-2.42"/>
-</g>
-<ellipse class="st1" cx="16.56" cy="9.68" rx="0.12" ry="0.2"/>
-<ellipse class="st2" cx="3.41" cy="1.43" rx="0.39" ry="0.62"/>
-<ellipse class="st2" cx="3.25" cy="18.54" rx="0.39" ry="0.62"/>
+<path class="st0" d="M3.78,2.01c0,0,3.55-0.04,4.78,2.63c1.44,3.11,4.1,2.92,6.02,3.39c1.66,0.41,3.65,3.22,0.56,4.74
+	c-2.78,1.37-2.72,2.66-5.68,2.56c-3.39-0.11-4.39,1.85-5.64,2.52"/>
 </svg>

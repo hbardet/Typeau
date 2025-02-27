@@ -38,7 +38,7 @@ function Typeau() {
       if (isPlaying) {
         currentAudio.pause();
       } else {
-        // Vérifier si l'audio est chargé avant de jouer
+        // V√©rifier si l'audio est charg√© avant de jouer
         if (audioLoaded) {
           currentAudio.play().catch(e => {
             console.error("Error playing audio:", e);
@@ -55,11 +55,11 @@ function Typeau() {
     setCharacter(String.fromCharCode(characterCode));
   }, [showFirstCarousel, currentIndex]);
 
-  // Gérer le chargement et la lecture du son de la lettre
+  // G√©rer le chargement et la lecture du son de la lettre
   useEffect(() => {
-    // Fonction pour créer et charger l'audio
+    // Fonction pour cr√©er et charger l'audio
     const loadLetterAudio = () => {
-      // Définir les fonctions de gestion d'événements d'abord
+      // D√©finir les fonctions de gestion d'√©v√©nements d'abord
       function handleCanPlay() {
         console.log("Audio can play:", letterSoundPath);
         setAudioLoaded(true);
@@ -75,23 +75,23 @@ function Typeau() {
         setAudioLoaded(false);
       }
       
-      // Arrêter l'audio actuel s'il existe
+      // Arr√™ter l'audio actuel s'il existe
       if (currentAudio) {
         currentAudio.pause();
         currentAudio.removeEventListener('canplaythrough', handleCanPlay);
         currentAudio.removeEventListener('error', handleError);
       }
 
-      // Créer le chemin du fichier audio
+      // Cr√©er le chemin du fichier audio
       const letterChar = String.fromCharCode(97 + currentIndex).toLowerCase();
       const letterSoundPath = `${process.env.PUBLIC_URL}/sound/${letterChar}_sound.mp3`;
       
       console.log("Loading audio:", letterSoundPath);
       
-      // Créer un nouvel élément audio
+      // Cr√©er un nouvel √©l√©ment audio
       const audio = new Audio();
       
-      // Configurer les gestionnaires d'événements
+      // Configurer les gestionnaires d'√©v√©nements
       audio.addEventListener('canplaythrough', handleCanPlay);
       audio.addEventListener('error', handleError);
       
@@ -99,12 +99,12 @@ function Typeau() {
       audio.src = letterSoundPath;
       audio.loop = true;
       
-      // Mettre à jour les références
+      // Mettre √† jour les r√©f√©rences
       letterAudioRef.current = audio;
       setCurrentAudio(audio);
       setAudioLoaded(false);
       
-      // Commencer à charger l'audio
+      // Commencer √† charger l'audio
       audio.load();
       
       // Fonction de nettoyage
@@ -116,7 +116,7 @@ function Typeau() {
     
     loadLetterAudio();
     
-    // Nettoyage lors du démontage du composant
+    // Nettoyage lors du d√©montage du composant
     return () => {
       if (letterAudioRef.current) {
         letterAudioRef.current.pause();
@@ -189,4 +189,3 @@ function Typeau() {
 }
 
 export default Typeau;
-
