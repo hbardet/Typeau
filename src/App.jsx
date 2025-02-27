@@ -6,7 +6,6 @@ function App() {
   return (
     <div>
       <Helmet>
-        <link rel="icon" type="image/x-icon" sizes="16x16" href="/favicon.png"/>
         <title>Typeau</title>
       </Helmet>
       <Typeau />
