@@ -10,10 +10,8 @@ const CustomCarousel = ({
   currentIndex = 0,
   setCurrentIndex,
 }) => {
-  // Extended list with clones at start and end for circular looping.
   const extendedSvgList = [svgList[svgList.length - 1], ...svgList, svgList[0]];
 
-  // Internal index (offset by 1 because of the clone at the beginning)
   const [index, setIndex] = useState(1);
   const [dragStart, setDragStart] = useState(null);
   const [dragOffset, setDragOffset] = useState(0);
@@ -21,21 +19,18 @@ const CustomCarousel = ({
   const containerRef = useRef(null);
   const prevParentIndexRef = useRef(currentIndex);
 
-  // STATES FOR BUTTON ANIMATION
   const [leftButtonOffset, setLeftButtonOffset] = useState(0);
   const [rightButtonOffset, setRightButtonOffset] = useState(0);
 
-  // Animate button offsets based on a wave-like formula.
   useEffect(() => {
     let rafId;
     let start = null;
     function animate(timestamp) {
       if (start === null) start = timestamp;
-      const time = (timestamp - start) / 1000; // in seconds
-      const amplitude = 10; // vertical offset amplitude in px
-      const frequency = 0.5; // control speed of oscillation
+      const time = (timestamp - start) / 1000;
+      const amplitude = 10;
+      const frequency = 0.5;
 
-      // Left button uses phase 0, right button uses phase π so they move oppositely.
       setLeftButtonOffset(amplitude * Math.sin(time * frequency));
       setRightButtonOffset(amplitude * Math.sin(time * frequency + Math.PI));
       rafId = requestAnimationFrame(animate);
@@ -44,21 +39,16 @@ const CustomCarousel = ({
     return () => cancelAnimationFrame(rafId);
   }, []);
 
-  // When parent's currentIndex changes, determine the internal (extended) index.
   useEffect(() => {
     const old = prevParentIndexRef.current;
     const newP = currentIndex;
     let diff = newP - old;
-    // Account for wrapping with 26 letters.
     if (diff > 13) diff = diff - 26;
     if (diff < -13) diff = diff + 26;
 
-    // If moving backward (A → Z)
     if (diff < 0 && old === 0 && newP === 25) {
       setIndex(0);
-    }
-    // If moving forward (Z → A)
-    else if (diff > 0 && old === 25 && newP === 0) {
+    } else if (diff > 0 && old === 25 && newP === 0) {
       setIndex(extendedSvgList.length - 1);
     } else {
       setIndex(newP + 1);
@@ -67,7 +57,6 @@ const CustomCarousel = ({
     prevParentIndexRef.current = newP;
   }, [currentIndex, extendedSvgList.length]);
 
-  // Propagate the internal index back to parent's currentIndex (mapping back to 0…25)
   useEffect(() => {
     if (index === 0) {
       setCurrentIndex(extendedSvgList.length - 3);
@@ -120,11 +109,9 @@ const CustomCarousel = ({
 
   const handleTransitionEnd = () => {
     if (index === extendedSvgList.length - 1) {
-      // Jump from cloned slide at the right to the first real slide.
       setIsTransitionEnabled(false);
       setIndex(1);
     } else if (index === 0) {
-      // Jump from cloned slide at the left to the last real slide.
       setIsTransitionEnabled(false);
       setIndex(extendedSvgList.length - 2);
     }
@@ -200,38 +187,40 @@ const CustomCarousel = ({
         onClick={slidePrev}
         style={{
           ...buttonStyle,
+          left: "20px", // Adjust the gap from the left edge
           transform: `translateY(${leftButtonOffset}px) translateY(-50%)`,
         }}
       >
-       <img
-        src={PREV_ICON}
-        alt="Button"
-        draggable="false"
-        style={{
-          width: "300%",
-          height: "300%",
-          userSelect: "none",
-        }}
-      />
+        <img
+          src={PREV_ICON}
+          alt="Button"
+          draggable="false"
+          style={{
+            width: "5vw", // Use viewport width for consistent sizing
+            height: "5vw",
+            userSelect: "none",
+            objectFit: "contain",
+          }}
+        />
       </button>
       <button
         onClick={slideNext}
         style={{
           ...buttonStyle,
-          right: "40px",
+          right: "20px", // Adjust the gap from the right edge
           transform: `translateY(${rightButtonOffset}px) translateY(-50%)`,
         }}
       >
-       <img
-        src={NEXT_ICON}
-        alt="Button"
-        draggable="false"
-        style={{
-          width: "300%",
-          height: "300%",
-          userSelect: "none",
-        }}
-      />
+        <img
+          src={NEXT_ICON}
+          alt="Button"
+          draggable="false"
+          style={{
+            width: "5vw", // Use viewport width for consistent sizing
+            height: "5vw",
+            userSelect: "none",
+          }}
+        />
       </button>
     </div>
   );
@@ -249,4 +238,3 @@ const buttonStyle = {
 };
 
 export default CustomCarousel;
-
