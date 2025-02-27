@@ -71,7 +71,7 @@ const ProgressBar = ({ currentIndex, setCurrentIndex, alphabet }) => {
               justifyContent: "center",
               cursor: "pointer",
               fontSize: isActive ? "20px" : "16px",
-              color: isActive ? "#fff" : "#1143BF",
+              color: isActive ? "#ccc" : "#1143BF",
               transition: "all 0.3s ease",
               // If active, set transformOrigin so scaling grows upward.
               transformOrigin: isActive ? "bottom center" : "center",
